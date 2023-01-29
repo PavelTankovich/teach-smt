@@ -1,0 +1,19 @@
+{
+  "cards": [
+    {
+      "frontSideText": "123",
+      "backSideText": "321",
+      "id": 1
+    },
+    {
+      "frontSideText": "789",
+      "backSideText": "987",
+      "id": 2
+    },
+    {
+      "frontSideText": "456",
+      "backSideText": "654",
+      "id": 3
+    }
+  ]
+}

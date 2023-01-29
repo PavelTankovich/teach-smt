@@ -1,0 +1,10 @@
+node_modules/
+.github/
+coverage/
+.idea/
+.vscode/
+.DS_Store
+
+*.html
+*.css
+*.txt
