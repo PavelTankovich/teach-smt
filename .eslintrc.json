@@ -7,15 +7,12 @@
   "extends": [
     "plugin:react/recommended",
     "airbnb",
-    "airbnb-typescript",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:import/recommended"
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -50,6 +47,8 @@
       1,
       {
         "extensions": [
+          ".js",
+          ".jsx",
           ".tsx",
           ".test.jsx"
         ]
@@ -142,25 +141,6 @@
       ]
     },
     "import/resolver": {
-      "alias": {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ],
-        "map": [
-          [
-            "src",
-            "./src"
-          ]
-        ]
-      },
-      "node": {
-        "alwaysTryTypes": true,
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
-      },
       "typescript": {
         "alwaysTryTypes": true,
         "extensions": [
@@ -194,55 +174,6 @@
           "error"
         ],
         "@typescript-eslint/no-empty-interface": "off"
-      }
-    },
-    {
-      "files": [
-        "**/*.test.*",
-        "**/*.mock.*",
-        "**/*.stories.*",
-        "src/testHelpers/**/*",
-        "jest.setup.tsx"
-      ],
-      "env": {
-        "jest": true,
-        "browser": false,
-        "node": true
-      },
-      "globals": {
-        "document": true,
-        "window": true
-      },
-      "rules": {
-        "import/no-extraneous-dependencies": [
-          "error",
-          {
-            "devDependencies": true
-          }
-        ],
-        "@typescript-eslint/no-var-requires": "off",
-        "max-lines": "off",
-        "no-underscore-dangle": "off"
-      }
-    },
-    {
-      "files": [
-        "**/*.test.*"
-      ],
-      "env": {
-        "browser": true
-      },
-      "rules": {
-        "@typescript-eslint/ban-ts-comment": "off"
-      }
-    },
-    {
-      "files": [
-        "**/*.stories.*"
-      ],
-      "rules": {
-        "no-console": "off",
-        "jsx-a11y/anchor-is-valid": "off"
       }
     }
   ]

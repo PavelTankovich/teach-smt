@@ -1,4 +1,4 @@
-import { MutationFunction } from "@tanstack/react-query";
+import type { MutationFunction } from "@tanstack/react-query";
 import FormData from "form-data";
 
 import { sanitizeRequestBody } from "src/utils/query/sanitizeRequestBody";
@@ -6,9 +6,11 @@ import { sanitizeRequestBody } from "src/utils/query/sanitizeRequestBody";
 import { HttpError } from "../HttpError";
 import { EHttpCode } from "../HttpError/statuses";
 
-export function mutateToPath<TData,
+export function mutateToPath<
+  TData,
   TVariables,
-  TTransformedVariables = TVariables>(
+  TTransformedVariables = TVariables
+>(
   path: string,
   {
     host = process.env.REACT_APP_GATEWAY_URL,
@@ -16,7 +18,7 @@ export function mutateToPath<TData,
     sanitize = true,
     contentType = "application/json",
     transformBody,
-    token
+    token,
   }: {
     host?: string;
     method?: "POST" | "PATCH" | "PUT" | "DELETE";
@@ -63,7 +65,7 @@ export function mutateToPath<TData,
       method,
       credentials: "include",
       headers,
-      body: bodyToSend as RequestInit as ReadableStream<Uint8Array>
+      body: bodyToSend as RequestInit as ReadableStream<Uint8Array>,
     });
 
     const response = await fetch(req);
@@ -83,14 +85,3 @@ export function mutateToPath<TData,
     }
   };
 }
-
-// "@typescript-eslint/eslint-plugin": "^5.49.0",
-// "@typescript-eslint/parser": "^5.49.0",
-// "eslint-config-airbnb": "^19.0.4",
-// "eslint-config-airbnb-typescript": "^17.0.0",
-// "eslint-config-prettier": "^8.6.0",
-// "eslint-import-resolver-alias": "^1.1.2",
-// "eslint-import-resolver-typescript": "^3.5.3",
-// "eslint-plugin-import": "^2.27.5",
-// "eslint-plugin-jsx-a11y": "^6.7.1",
-// "eslint-plugin-react": "^7.32.1",
