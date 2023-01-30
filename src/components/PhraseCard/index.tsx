@@ -1,5 +1,5 @@
 import { alpha, Stack } from "@mui/material";
-import { useMemo, useState } from "react";
+import { CSSProperties, useMemo, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
 import { CardSide } from "src/components/PhraseCard/components/CardSide";
@@ -11,8 +11,9 @@ interface IPhraseCardProps {
   backSideText: string;
   onShowNextCard: VoidFunction;
   onShowPreviousCard: VoidFunction;
-  currenNumber: number;
+  currentNumber: number;
   totalCards: number;
+  style: CSSProperties;
 }
 
 export function PhraseCard({
@@ -20,8 +21,9 @@ export function PhraseCard({
   backSideText,
   onShowNextCard,
   onShowPreviousCard,
-  currenNumber,
+  currentNumber,
   totalCards,
+  style,
 }: IPhraseCardProps): JSX.Element {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isValidCard, setIsValidCard] = useState(false);
@@ -30,7 +32,9 @@ export function PhraseCard({
     transform: `perspective(900px) rotateY(${isFlipped ? 180 : 0}deg)`,
     config: { mass: 10, tension: 300, friction: 60 },
   });
+
   const AnimatedCardSide = animated(CardSide);
+  const AnimatedStack = animated(Stack);
 
   const handleFlipCard = () => {
     setIsFlipped((prevState) => !prevState);
@@ -46,26 +50,27 @@ export function PhraseCard({
     return {
       frontSideText,
       backSideText,
-      currenNumber,
+      currentNumber,
       totalCards,
       onShowNextCard,
       onShowPreviousCard,
       onFlipCard: handleFlipCard,
       onCardValidation: handleCardValidation,
     };
-  }, [frontSideText, backSideText, currenNumber, isFlipped]);
+  }, [frontSideText, backSideText, currentNumber, isFlipped]);
 
   return (
-    <CardInfoProvider {...cardInfo}>
-      <Stack
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          position: "relative",
-          width: "30rem",
-          height: "20rem",
-        }}
-      >
+    <AnimatedStack
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        position: "absolute",
+        width: "30rem",
+        height: "20rem",
+      }}
+      style={style}
+    >
+      <CardInfoProvider {...cardInfo}>
         <AnimatedCardSide
           isFront
           style={{
@@ -89,7 +94,7 @@ export function PhraseCard({
             ),
           })}
         />
-      </Stack>
-    </CardInfoProvider>
+      </CardInfoProvider>
+    </AnimatedStack>
   );
 }

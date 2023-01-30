@@ -5,7 +5,7 @@ import { ICardFormValues } from "src/components/PhraseCard/types/interfaces/Card
 interface ICardInfoProps {
   frontSideText: string;
   backSideText: string;
-  currenNumber: number;
+  currentNumber: number;
   totalCards: number;
   onShowNextCard: VoidFunction;
   onShowPreviousCard: VoidFunction;

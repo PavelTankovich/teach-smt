@@ -17,7 +17,7 @@ export function CardContent({
   isFront,
   isBack,
 }: ICardContentProps): JSX.Element {
-  const { frontSideText, backSideText, currenNumber, totalCards, onFlipCard } =
+  const { frontSideText, backSideText, currentNumber, totalCards, onFlipCard } =
     useCardInfo();
 
   return (
@@ -29,7 +29,7 @@ export function CardContent({
       <Stack sx={{ height: "100%" }}>
         <Stack direction="row" justifyContent="center">
           <Typography>
-            {currenNumber} / {totalCards}
+            {currentNumber} / {totalCards}
           </Typography>
         </Stack>
         <Stack

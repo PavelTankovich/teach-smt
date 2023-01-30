@@ -1,5 +1,4 @@
 import { Theme } from "@mui/material/styles";
-import { SystemStyleObject } from "@mui/system/styleFunctionSx/styleFunctionSx";
 import { CSSProperties } from "react";
 import { Card as MuiCard, CardActions, Button, Stack } from "@mui/material";
 
@@ -9,7 +8,7 @@ import { useCardInfo } from "src/components/PhraseCard/contexts/CardInfo";
 interface ICardSideProps {
   isFront?: boolean;
   isBack?: boolean;
-  sideStyles?: (theme: Theme) => SystemStyleObject<Theme>;
+  sideStyles?: (theme: Theme) => CSSProperties;
   style: CSSProperties;
 }
 
@@ -19,7 +18,7 @@ export function CardSide({
   sideStyles,
   style,
 }: ICardSideProps): JSX.Element {
-  const { onShowPreviousCard, onShowNextCard, currenNumber, totalCards } =
+  const { onShowPreviousCard, onShowNextCard, currentNumber, totalCards } =
     useCardInfo();
 
   return (
@@ -37,21 +36,6 @@ export function CardSide({
         ...(sideStyles ? sideStyles(theme) : {}),
       })}
     >
-      {/* <Stack justifyContent="center" alignItems="center"> */}
-      {/*  <Typography */}
-      {/*    variant="h5" */}
-      {/*    component="h2" */}
-      {/*    sx={{ */}
-      {/*      flexGrow: 1, */}
-      {/*      display: "flex", */}
-      {/*      alignItems: "center", */}
-      {/*      justifyContent: "center", */}
-      {/*    }} */}
-      {/*  > */}
-      {/*    {isFront && frontSideText} */}
-      {/*    {isBack && backSideText} */}
-      {/*  </Typography> */}
-      {/* </Stack> */}
       <CardContent isFront={isFront} isBack={isBack} />
       <CardActions>
         <Stack
@@ -64,14 +48,14 @@ export function CardSide({
           <Button
             size="small"
             onClick={onShowPreviousCard}
-            disabled={currenNumber === 1}
+            disabled={currentNumber === 1}
           >
             Previous
           </Button>
           <Button
             size="small"
             onClick={onShowNextCard}
-            disabled={currenNumber === totalCards}
+            disabled={currentNumber === totalCards}
           >
             Next
           </Button>

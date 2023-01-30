@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useGetCurrentCardsMode } from "src/context/ModeProvider";
 import { useGetCard } from "src/pages/Cards/Learn/hooks/queries/useGetCard";
-import { getRandomNumberFromRange } from "src/utils/getRandomNumberFromRange";
 import { getCardTextProps } from "src/pages/Cards/Learn/hooks/useGetCardInfo/utils/getCardTextProps";
+import { getRandomNumberFromRange } from "src/utils/getRandomNumberFromRange";
 
 interface ICard {
   frontSideText: string;
   backSideText: string;
 }
 
-export interface IUseGetCardInfoReturnForLoading {
-  isLoading: boolean;
-}
-
-export interface IUseGetCardInfoReturn extends ICard {
+export interface IUseGetCardInfoReturn extends Partial<ICard> {
   isLoading: boolean;
   onShowNextCard: () => void;
   onShowPreviousCard: () => void;
@@ -22,9 +18,7 @@ export interface IUseGetCardInfoReturn extends ICard {
   totalCards: number;
 }
 
-export function useGetCardInfo():
-  | IUseGetCardInfoReturnForLoading
-  | IUseGetCardInfoReturn {
+export function useGetCardInfo(): IUseGetCardInfoReturn {
   const mode = useGetCurrentCardsMode();
   const [pagination, setPagination] = useState({
     currentNumber: 0,
@@ -32,7 +26,7 @@ export function useGetCardInfo():
   });
   const [currentCard, setCurrentCard] = useState<ICard | undefined>(undefined);
   const [cardNumbers, setCardNumbers] = useState<number[]>([]);
-  const { data: cards, isLoading } = useGetCard();
+  const { data: cards } = useGetCard();
 
   useEffect(() => {
     if (cards && cards.length > 0) {
@@ -92,14 +86,15 @@ export function useGetCardInfo():
     }
   };
 
-  return isLoading
-    ? { isLoading }
-    : {
-        isLoading,
-        ...currentCard,
-        currentNumber: pagination.currentNumber + 1,
-        totalCards: pagination.total,
-        onShowNextCard,
-        onShowPreviousCard,
-      };
+  return useMemo(
+    () => ({
+      isLoading: !currentCard,
+      ...currentCard,
+      currentNumber: pagination.currentNumber + 1,
+      totalCards: pagination.total,
+      onShowNextCard,
+      onShowPreviousCard,
+    }),
+    [currentCard]
+  );
 }
